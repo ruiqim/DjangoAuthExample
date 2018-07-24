@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'conduit.apps.core',
     'conduit.apps.profiles',
 
-    
+
 ]
 
 # Tell Django about the custom `User` model we created. The string
@@ -68,6 +68,12 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'conduit.urls'
+
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'conduit.apps.core.exceptions.core_exception_handler',
+    'NON_FIELD_ERRORS_KEY': 'error',
+}
 
 TEMPLATES = [
     {
