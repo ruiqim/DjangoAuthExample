@@ -18,7 +18,7 @@ class RegistrationAPIView(APIView):
         # is common
 
         serializer = self.serializer_class(data=user)
-        serialzer.is_valid(raise_exception=True)
+        serializer.is_valid(raise_exception=True)
         serializer.save()
 
-        return Response(serialzer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users
+from .models import User
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -8,7 +8,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     # Ensure passwords are at least 8 characters long, no longer than 128
     # characters, and can not be read by the clientself.
 
-    password = serialziers.CharField(
+    password = serializers.CharField(
         max_length=128,
         min_length=8,
         write_only=True
@@ -16,7 +16,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     # The clieant should not be able to send a token along with a registration
     # request. making `token` read-only and handles that for us.
-    token = serialziers.CharField(max_length=255, read_only=True)
+    token = serializers.CharField(max_length=255, read_only=True)
 
     class Meta:
         model = User

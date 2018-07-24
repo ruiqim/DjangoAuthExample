@@ -1,6 +1,6 @@
-from django.conf.urls import urls
+from django.conf.urls import url
 from .views import RegistrationAPIView
 
 urlpatterns = [
-    url(r'^urls/?$', RegistrationAPIView.as_view()),
+    url(r'^users/?$', RegistrationAPIView.as_view()),
 ]
