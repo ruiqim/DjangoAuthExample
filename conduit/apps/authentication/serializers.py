@@ -84,3 +84,44 @@ class LoginSerializer(serializers.Serializer):
             'username': user.username,
             'token': user.token
         }
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """Handles serialization and deserialization of User objects."""
+
+    # Create method should only be handled by the RegistrationSerializer
+
+    password = serializers.CharField(
+        max_length=128,
+        min_length=8,
+        write_only=True
+    )
+
+    class Meta:
+        model = User
+        fields = ('email', 'username', 'password', 'token',)
+
+        read_only_fields = ('token',)
+
+
+    def update(self, instance, validated_data):
+        """ Updates User information"""
+
+        # Passwords should not be be handled with `setattr` due to
+        # hashing and salting. This means that the password must
+        # first be removed from the dictionary before iterating
+        password = validated_data.pop('password', None)
+
+        for (key, value) in validated_data.items():
+            # Set the remaining values in the `User` instance
+            setattr(instance, key, value)
+
+        if password is not None:
+            # `.set_password()` handles all of the security
+            # issues that out of scope of this project
+
+            instance.set_password(password)
+
+        instance.save()
+
+        return instance
